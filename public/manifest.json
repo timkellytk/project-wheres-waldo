@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Where's Waldo",
+  "name": "Where's Waldo - THe Odin Project",
   "icons": [
     {
       "src": "favicon.ico",
