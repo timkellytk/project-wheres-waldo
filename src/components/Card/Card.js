@@ -8,8 +8,8 @@ const Card = (props) => {
   return (
     <div
       className={`${
-        props.active ? 'bg-red-500 text-white' : 'bg-white'
-      } rounded transition-shadow hover:shadow`}
+        props.active ? 'bg-red-100 ' : 'bg-white '
+      }  hover:shadow rounded transition-shadow `}
     >
       <img
         className={`${props.small ? 'h-40' : 'h-56'} w-full object-cover`}
