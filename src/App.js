@@ -1,13 +1,21 @@
 import React from 'react';
-import Wrapper from './components/Wrapper/Wrapper';
 import Home from './pages/Home';
+import Game from './pages/Game';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './assets/main.css';
 
 function App() {
   return (
-    <Wrapper>
-      <Home />
-    </Wrapper>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/game">
+          <Game />
+        </Route>
+        <Route>
+          <Home />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
