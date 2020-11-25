@@ -12,7 +12,7 @@ import level6 from '../img/levels/level-6.jpg';
 const Home = () => {
   return (
     <Wrapper>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-4">
         <Link to="/game">
           <Card img={level1} alt="Level 1 Where's Waldo" waldo odlaw wizard>
             Level 1
