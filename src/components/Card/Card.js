@@ -6,7 +6,7 @@ import Wizard from '../../img/character/wizard.jpg';
 
 const Card = (props) => {
   return (
-    <div className="bg-white rounded shadow transition-shadow hover:shadow-lg">
+    <div className="bg-gray-50 rounded  transition-shadow hover:shadow">
       <img class="h-56 w-full object-cover" src={props.img} alt={props.alt} />
       <div className="p-4 flex justify-between align-middle">
         <h1 className="flex-shrink-0 lg:text-lg font-medium mr-3">
