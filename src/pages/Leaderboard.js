@@ -1,7 +1,7 @@
 import React from 'react';
 import Wrapper from '../components/Wrapper/Wrapper';
 import Card from '../components/Card/Card';
-import { Link } from 'react-router-dom';
+import { PrimaryBtn, SecondaryBtn } from '../components/Utility/Btns/Btns';
 import level1 from '../img/levels/level-1.jpg';
 import level2 from '../img/levels/level-2.jpg';
 import level3 from '../img/levels/level-3.jpg';
@@ -16,18 +16,10 @@ const Leaderboard = () => (
         Leaderboard
       </h1>
       <div className="mb-4">
-        <Link
-          to="/game"
-          className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-400 hover:bg-red-500"
-        >
-          Play this level
-        </Link>
-        <Link
-          to="/"
-          class="ml-4 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-red-50"
-        >
+        <PrimaryBtn link="/game">Play This Level</PrimaryBtn>
+        <SecondaryBtn link="/" leftMargin>
           Back To Home
-        </Link>
+        </SecondaryBtn>
       </div>
       <div className="grid grid-cols-6 gap-3 mb-4">
         <Card img={level1} alt="Level 1 Where's Waldo" small active>
@@ -49,7 +41,6 @@ const Leaderboard = () => (
           Level 6
         </Card>
       </div>
-
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">

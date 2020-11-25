@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../components/Card/Card';
 import Wrapper from '../components/Wrapper/Wrapper';
+import { PrimaryBtn } from '../components/Utility/Btns/Btns';
 import { Link } from 'react-router-dom';
 import level1 from '../img/levels/level-1.jpg';
 import level2 from '../img/levels/level-2.jpg';
@@ -42,12 +43,7 @@ const Home = () => {
           </h2>
           <div className="mt-8 lex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
-              <Link
-                to="/leaderboard"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-400 hover:bg-red-500"
-              >
-                View Leaderboard
-              </Link>
+              <PrimaryBtn link="/leaderboard">View Leaderboard</PrimaryBtn>
             </div>
           </div>
         </div>
