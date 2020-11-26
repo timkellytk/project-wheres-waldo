@@ -23,26 +23,38 @@ const Game = () => {
     setShowDropdown(true);
   };
 
+  const imageClick = (e) => {
+    const coords = getLocationImageClick(e);
+    setCoords(coords);
+    updateClickLocation(coords);
+  };
+
+  const hideDropdown = () => setShowDropdown(false);
+
+  const dropdownClick = (character) => {
+    const gameSelection = { coords, character };
+    console.log(gameSelection);
+    hideDropdown();
+  };
+
   const [showDropdown, setShowDropdown] = useState(false);
+  const [coords, setCoords] = useState(null);
   const [clickLocation, setClickLocation] = useState({ left: '0%', top: '0%' });
 
   return (
     <GameWrapper>
       <div className="relative">
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            setShowDropdown(false);
-          }}
-        >
+        <OutsideClickHandler onOutsideClick={hideDropdown}>
           <img
             className="w-full h-full"
             src={Level1}
             alt="level 1"
-            onClick={(e) => updateClickLocation(getLocationImageClick(e))}
+            onClick={imageClick}
           />
           <CharacterDropdown
             show={showDropdown}
             clickLocation={clickLocation}
+            clicked={dropdownClick}
           />
         </OutsideClickHandler>
       </div>

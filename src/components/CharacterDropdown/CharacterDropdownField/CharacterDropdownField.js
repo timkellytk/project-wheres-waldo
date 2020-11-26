@@ -5,6 +5,7 @@ const CharacterDropdownField = (props) => {
     <a
       href="#menuitem"
       className="block text-sm font-semibold p-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+      onClick={() => props.clicked(props.title)}
       role="menuitem"
     >
       <div className="flex items-center">

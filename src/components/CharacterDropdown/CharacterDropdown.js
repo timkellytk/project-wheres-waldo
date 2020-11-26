@@ -17,10 +17,26 @@ const CharacterDropdown = (props) => {
         aria-orientation="vertical"
         aria-labelledby="options-menu"
       >
-        <CharacterDropdownField image={Waldo} title="Waldo" />
-        <CharacterDropdownField image={Odlaw} title="Odlaw" />
-        <CharacterDropdownField image={Wizard} title="Wizard" />
-        <CharacterDropdownField image={Wenda} title="Wenda" />
+        <CharacterDropdownField
+          image={Waldo}
+          title="Waldo"
+          clicked={props.clicked}
+        />
+        <CharacterDropdownField
+          image={Odlaw}
+          title="Odlaw"
+          clicked={props.clicked}
+        />
+        <CharacterDropdownField
+          image={Wizard}
+          title="Wizard"
+          clicked={props.clicked}
+        />
+        <CharacterDropdownField
+          image={Wenda}
+          title="Wenda"
+          clicked={props.clicked}
+        />
       </div>
     </div>
   );
