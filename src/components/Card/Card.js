@@ -10,6 +10,7 @@ const Card = (props) => {
       className={`${
         props.active ? 'bg-red-100 ' : 'bg-white '
       }  hover:shadow rounded transition-shadow `}
+      onClick={props.clicked}
     >
       <img
         className={`${props.small ? 'h-40' : 'h-56'} w-full object-cover`}

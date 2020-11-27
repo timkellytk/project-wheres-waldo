@@ -10,30 +10,80 @@ import level4 from '../img/levels/level-4.jpg';
 import level5 from '../img/levels/level-5.jpg';
 import level6 from '../img/levels/level-6.jpg';
 
-const Home = () => {
+const Home = (props) => {
   return (
     <Wrapper>
       <div className="grid md:grid-cols-3 gap-4">
         <Link to="/game">
-          <Card img={level1} alt="Level 1 Where's Waldo" waldo odlaw wizard>
+          <Card
+            img={level1}
+            clicked={() => props.setLevel(1)}
+            alt="Level 1 Where's Waldo"
+            waldo
+            odlaw
+            wizard
+          >
             Level 1
           </Card>
         </Link>
-        <Card img={level2} alt="Level 2 Where's Waldo" waldo>
-          Level 2
-        </Card>
-        <Card img={level3} alt="Level 3 Where's Waldo" waldo odlaw wizard wenda>
-          Level 3
-        </Card>
-        <Card img={level4} alt="Level 4 Where's Waldo" waldo odlaw wenda>
-          Level 4
-        </Card>
-        <Card img={level5} alt="Level 5 Where's Waldo" waldo odlaw wizard wenda>
-          Level 5
-        </Card>
-        <Card img={level6} alt="Level 6 Where's Waldo" waldo>
-          Level 6
-        </Card>
+        <Link to="/game">
+          <Card
+            img={level2}
+            clicked={() => props.setLevel(2)}
+            alt="Level 2 Where's Waldo"
+            waldo
+          >
+            Level 2
+          </Card>
+        </Link>
+        <Link to="/game">
+          <Card
+            img={level3}
+            clicked={() => props.setLevel(3)}
+            alt="Level 3 Where's Waldo"
+            waldo
+            odlaw
+            wizard
+            wenda
+          >
+            Level 3
+          </Card>
+        </Link>
+        <Link to="/game">
+          <Card
+            img={level4}
+            clicked={() => props.setLevel(4)}
+            alt="Level 4 Where's Waldo"
+            waldo
+            odlaw
+            wenda
+          >
+            Level 4
+          </Card>
+        </Link>
+        <Link to="/game">
+          <Card
+            img={level5}
+            clicked={() => props.setLevel(5)}
+            alt="Level 5 Where's Waldo"
+            waldo
+            odlaw
+            wizard
+            wenda
+          >
+            Level 5
+          </Card>
+        </Link>
+        <Link to="/game">
+          <Card
+            img={level6}
+            clicked={() => props.setLevel(6)}
+            alt="Level 6 Where's Waldo"
+            waldo
+          >
+            Level 6
+          </Card>
+        </Link>
       </div>
       <div className="bg-gray-50 mt-8">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
