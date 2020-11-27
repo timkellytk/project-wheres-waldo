@@ -37,6 +37,7 @@ const Game = (props) => {
     hideDropdown();
   };
 
+  const [gameID, setGameID] = useState(null);
   const [image, setImage] = useState('');
   const [characters, setCharacters] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -67,13 +68,11 @@ const Game = (props) => {
     firestore
       .collection('game')
       .add({ startTime: timestamp })
-      .then(function (docRef) {
-        console.log('Document written with ID: ', docRef.id);
+      .then((docRef) => {
+        setGameID(docRef.id);
       });
-    console.log('firestore', firestore);
   }, [props.level]);
 
-  console.log('level', props.level);
   return (
     <GameWrapper characters={characters}>
       <div className="relative">

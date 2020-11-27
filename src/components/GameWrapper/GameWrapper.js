@@ -6,7 +6,6 @@ import Character from './Character/Character';
 
 const GameWrapper = (props) => {
   const characters = props.characters.map((character) => {
-    console.log('character', character);
     return (
       <Character
         name={character.character}
