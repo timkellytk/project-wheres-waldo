@@ -71,7 +71,7 @@ const Game = (props) => {
         console.log('Document written with ID: ', docRef.id);
       });
     console.log('firestore', firestore);
-  }, []);
+  }, [props.level]);
 
   console.log('level', props.level);
   return (
