@@ -9,7 +9,7 @@ const Card = (props) => {
     <div
       className={`${
         props.active ? 'bg-red-100 ' : 'bg-white '
-      }  hover:shadow rounded transition-shadow `}
+      }  hover:shadow rounded transition-shadow cursor-pointer`}
       onClick={props.clicked}
     >
       <img

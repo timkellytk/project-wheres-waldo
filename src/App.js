@@ -15,7 +15,7 @@ function App() {
           <Game level={level} />
         </Route>
         <Route path="/leaderboard">
-          <Leaderboard />
+          <Leaderboard setLevel={setLevel} level={level} />
         </Route>
         <Route>
           <Home setLevel={setLevel} />
