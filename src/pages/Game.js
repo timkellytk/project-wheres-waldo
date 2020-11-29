@@ -80,7 +80,7 @@ const Game = (props) => {
           <img
             className="w-full h-full"
             src={image}
-            alt="level 1"
+            alt="Game Level"
             onClick={imageClick}
           />
           <CharacterDropdown
