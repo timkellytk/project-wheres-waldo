@@ -36,6 +36,7 @@ const Leaderboard = (props) => {
           small
           active={props.level === level.number}
           clicked={() => props.setLevel(level.number)}
+          key={level.number}
         >
           {'Level ' + level.number}
         </Card>
