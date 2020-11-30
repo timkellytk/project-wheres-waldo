@@ -1,6 +1,7 @@
 import React from 'react';
 import Wrapper from '../components/Wrapper/Wrapper';
 import Card from '../components/Card/Card';
+import LeaderboardTable from '../components/LeaderboardTable/LeaderboardTable';
 import { PrimaryBtn, SecondaryBtn } from '../components/Utility/Btns/Btns';
 import level1 from '../img/levels/level-1.jpg';
 import level2 from '../img/levels/level-2.jpg';
@@ -17,6 +18,13 @@ const Leaderboard = (props) => {
     { number: 4, image: level4 },
     { number: 5, image: level5 },
     { number: 6, image: level6 },
+  ];
+
+  const leaderboardValues = [
+    { name: 'Tim Kelly', time: '0:03' },
+    { name: 'Sarah Parker', time: '0:05' },
+    { name: 'Luke Mcdonald', time: '0:10' },
+    { name: 'Mahnoor Malik', time: '0:15' },
   ];
 
   const Levels = () => {
@@ -50,42 +58,7 @@ const Leaderboard = (props) => {
         <div className="grid grid-cols-6 gap-3 mb-4">
           <Levels />
         </div>
-        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Name
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Time
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        Tim Kelly
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      0:03
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        <LeaderboardTable values={leaderboardValues} />
       </div>
     </Wrapper>
   );
