@@ -32,7 +32,7 @@ const Game = (props) => {
   const hideDropdown = () => setShowDropdown(false);
 
   const dropdownClick = (character) => {
-    const gameSelection = { coords, character };
+    const gameSelection = { coords, character, gameID, level: props.level };
     firestore.collection('playerSelection').add(gameSelection);
     hideDropdown();
   };
@@ -54,7 +54,7 @@ const Game = (props) => {
         querySnapshot.forEach(function (doc) {
           const { image, characters } = doc.data();
           const charactersObj = characters.map((character) => {
-            const obj = { character: character, found: false };
+            const obj = { character: character.name, found: false };
             return obj;
           });
           setImage(image);
@@ -67,11 +67,29 @@ const Game = (props) => {
 
     firestore
       .collection('game')
-      .add({ startTime: timestamp })
+      .add({ startTime: timestamp, level: props.level })
       .then((docRef) => {
         setGameID(docRef.id);
       });
   }, [props.level]);
+
+  useEffect(() => {
+    // Load game characters
+    if (gameID) {
+      const gameRef = firestore.collection('game').doc(gameID);
+      return gameRef
+        .update({
+          characters,
+        })
+        .then(function () {
+          console.log('Document successfully updated!');
+        })
+        .catch(function (error) {
+          // The document probably doesn't exist.
+          console.error('Error updating document: ', error);
+        });
+    }
+  }, [characters, gameID]);
 
   return (
     <GameWrapper characters={characters}>

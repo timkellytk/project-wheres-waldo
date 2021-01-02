@@ -56,7 +56,6 @@ const Home = (props) => {
             alt="Level 4 Where's Waldo"
             waldo
             odlaw
-            wenda
           >
             Level 4
           </Card>
