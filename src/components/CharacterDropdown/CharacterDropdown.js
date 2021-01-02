@@ -6,6 +6,33 @@ import Wenda from '../../img/character/wenda.jpg';
 import Wizard from '../../img/character/wizard.jpg';
 
 const CharacterDropdown = (props) => {
+  const getCharacterImage = (character) => {
+    switch (character) {
+      case 'Waldo':
+        return Waldo;
+      case 'Odlaw':
+        return Odlaw;
+      case 'Wizard':
+        return Wizard;
+      case 'Wenda':
+        return Wenda;
+      default:
+        break;
+    }
+  };
+
+  const CharactersDropdownFields = () => {
+    return props.characters.map((character) => {
+      return (
+        <CharacterDropdownField
+          image={getCharacterImage(character.character)}
+          title={character.character}
+          clicked={props.clicked}
+        />
+      );
+    });
+  };
+
   return (
     <div
       className={`${props.show ? 'absolute' : 'hidden'}`}
@@ -17,7 +44,8 @@ const CharacterDropdown = (props) => {
         aria-orientation="vertical"
         aria-labelledby="options-menu"
       >
-        <CharacterDropdownField
+        <CharactersDropdownFields />
+        {/* <CharacterDropdownField
           image={Waldo}
           title="Waldo"
           clicked={props.clicked}
@@ -36,7 +64,7 @@ const CharacterDropdown = (props) => {
           image={Wenda}
           title="Wenda"
           clicked={props.clicked}
-        />
+        /> */}
       </div>
     </div>
   );

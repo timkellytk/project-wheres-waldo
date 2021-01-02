@@ -103,6 +103,7 @@ const Game = (props) => {
           />
           <CharacterDropdown
             show={showDropdown}
+            characters={characters}
             clickLocation={clickLocation}
             clicked={dropdownClick}
           />
