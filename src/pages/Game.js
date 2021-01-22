@@ -66,7 +66,7 @@ const Game = (props) => {
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
     firestore
-      .collection('game')
+      .collection('games')
       .add({ startTime: timestamp, level: props.level })
       .then((docRef) => {
         setGameID(docRef.id);
@@ -76,7 +76,7 @@ const Game = (props) => {
   useEffect(() => {
     // Load game characters
     if (gameID) {
-      const gameRef = firestore.collection('game').doc(gameID);
+      const gameRef = firestore.collection('games').doc(gameID);
       return gameRef
         .update({
           characters,
