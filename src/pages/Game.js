@@ -3,6 +3,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import firebase, { firestore } from '../firebase';
 import GameWrapper from '../components/GameWrapper/GameWrapper';
 import CharacterDropdown from '../components/CharacterDropdown/CharacterDropdown';
+import Modal from '../components/Modal';
 
 const Game = (props) => {
   const getLocationImageClick = (e) => {
@@ -40,6 +41,7 @@ const Game = (props) => {
   const [gameID, setGameID] = useState(null);
   const [image, setImage] = useState('');
   const [characters, setCharacters] = useState([]);
+  const [gameComplete, setGameComplete] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [coords, setCoords] = useState(null);
   const [clickLocation, setClickLocation] = useState({ left: '0%', top: '0%' });
@@ -109,6 +111,8 @@ const Game = (props) => {
           />
         </OutsideClickHandler>
       </div>
+      <div onClick={() => setGameComplete(true)}>trigger modal</div>
+      <Modal showModal={gameComplete} />
     </GameWrapper>
   );
 };
