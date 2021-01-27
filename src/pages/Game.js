@@ -38,6 +38,14 @@ const Game = (props) => {
     hideDropdown();
   };
 
+  const submitScore = () => {
+    setShowDropdown(false);
+  }
+
+  const closeDropdown = () => {
+    setShowDropdown(false)
+  }
+
   const [gameID, setGameID] = useState(null);
   const [image, setImage] = useState('');
   const [characters, setCharacters] = useState([]);
@@ -112,7 +120,7 @@ const Game = (props) => {
         </OutsideClickHandler>
       </div>
       <div onClick={() => setGameComplete(true)}>trigger modal</div>
-      <Modal showModal={gameComplete} />
+      <Modal showModal={gameComplete} seconds={12.1} username={props.username} updateUsername={props.updateUsername} submitScore={submitScore} closeDropdown={closeDropdown} />
     </GameWrapper>
   );
 };

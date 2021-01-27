@@ -7,12 +7,16 @@ import './assets/main.css';
 
 function App() {
   const [level, setLevel] = useState(1);
+  const [username, setUsername] = useState('')
+  const handleUpdateUsername = (e) => {
+    setUsername(e.target.value);
+  }
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/game">
-          <Game level={level} />
+          <Game level={level} username={username} updateUsername={handleUpdateUsername} />
         </Route>
         <Route path="/leaderboard">
           <Leaderboard setLevel={setLevel} level={level} />
