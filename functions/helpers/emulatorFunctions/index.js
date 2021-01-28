@@ -25,11 +25,11 @@ const addMockData = functions.https.onRequest(async (req, res) => {
       { name: "Wenda", found: false },
     ],
     level: 5,
-    startTime: "TIME",
+    startTime: admin.firestore.FieldValue.serverTimestamp(),
   };
 
   db.collection(LEVELS).add(levelData);
-  db.collection(GAMES).add(gameData);
+  db.collection(GAMES).add(gameData);admin.firestore.FieldValue.serverTimestamp()
 
   return res.send({ finish: "data added succesfully" });
 });
