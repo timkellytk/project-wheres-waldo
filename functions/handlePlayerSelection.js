@@ -29,59 +29,61 @@ const handlePlayerSelection = functions.firestore
         char.yCoord === coords.yCoord
     );
 
-    const gameRef = db.collection(GAMES).doc(gameId);
-    const gameSnap = await gameRef.get();
-    const gameData = gameSnap.data();
-    const updatedGameCharacters = gameData.characters.map((char) => {
-      if (char.name === character) {
-        return { character, found: true };
-      }
-      return char;
-    });
-    const isGameover = updatedGameCharacters.every((char) => char.found);
+    if (isCharacterAtCoords) {
+      const gameRef = db.collection(GAMES).doc(gameId);
+      const gameSnap = await gameRef.get();
+      const gameData = gameSnap.data();
+      const updatedGameCharacters = gameData.characters.map((char) => {
+        if (char.name === character) {
+          return { character, found: true };
+        }
+        return char;
+      });
+      const isGameover = updatedGameCharacters.every((char) => char.found);
 
-    if (isGameover) {
-      gameRef
-        .update({
-          ...gameData,
-          characters: updatedGameCharacters,
-          endTime: admin.firestore.FieldValue.serverTimestamp(),
-        })
-        .then(async () => {
-          const newGameSnap = await gameRef.get();
-          const newGameData = newGameSnap.data();
-          const startTime = newGameData.startTime;
-          const endTime = newGameData.endTime;
-          const elapsedSeconds =
-            (endTime.toMillis() - startTime.toMillis()) / 1000;
-          await gameRef
-            .update({
-              elapsedSeconds,
-            })
-            .then(() => {
-              db.collection(PLAYER_SELECTION)
-                .doc(snap.id)
-                .delete()
-                .then(() => {
-                  console.log('Succesfully updated game - gameover version')
-                  return { characters: updatedGameCharacters, elapsedSeconds };
-                });
-            });
-        });
-    } else {
-      gameRef
-        .update({ ...gameData, characters: updatedGameCharacters })
-        .then(() => {
-          db.collection(PLAYER_SELECTION)
-            .doc(snap.id)
-            .delete()
-            .then(() => {
-              console.log('Succesfully updated game - gameover version')
-              return { characters: updatedGameCharacters };
-            });
-        });
-    }
-    return true;
+      if (isGameover) {
+        gameRef
+          .update({
+            ...gameData,
+            characters: updatedGameCharacters,
+            endTime: admin.firestore.FieldValue.serverTimestamp(),
+          })
+          .then(async () => {
+            const newGameSnap = await gameRef.get();
+            const newGameData = newGameSnap.data();
+            const startTime = newGameData.startTime;
+            const endTime = newGameData.endTime;
+            const elapsedSeconds =
+              (endTime.toMillis() - startTime.toMillis()) / 1000;
+            await gameRef
+              .update({
+                elapsedSeconds,
+              })
+              .then(() => {
+                db.collection(PLAYER_SELECTION)
+                  .doc(snap.id)
+                  .delete()
+                  .then(() => {
+                    console.log('Succesfully updated game - gameover version')
+                    return { characters: updatedGameCharacters, elapsedSeconds };
+                  });
+              });
+          });
+      } else {
+        gameRef
+          .update({ ...gameData, characters: updatedGameCharacters })
+          .then(() => {
+            db.collection(PLAYER_SELECTION)
+              .doc(snap.id)
+              .delete()
+              .then(() => {
+                console.log('Succesfully updated game - gameover version')
+                return { characters: updatedGameCharacters };
+              });
+          });
+      }
+    } 
+    return false;
   });
 
 module.exports = handlePlayerSelection;
