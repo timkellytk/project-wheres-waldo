@@ -20,9 +20,9 @@ const addMockData = functions.https.onRequest(async (req, res) => {
   const gameData = {
     characters: [
       { character: "Waldo", found: false },
-      { name: "Odlaw", found: false },
-      { name: "Wizard", found: false },
-      { name: "Wenda", found: false },
+      { character: "Odlaw", found: false },
+      { character: "Wizard", found: false },
+      { character: "Wenda", found: false },
     ],
     level: 5,
     startTime: admin.firestore.FieldValue.serverTimestamp(),
@@ -44,8 +44,8 @@ const addMockPlayerSelection = functions.https.onRequest(async (req, res) => {
         const playerSelectionData = {
           character: "Wizard",
           coords: {
-            xCoord: 74,
-            yCoord: 86,
+            xCoord: 72,
+            yCoord: 88,
           },
           gameId: gameId,
           level: 5,

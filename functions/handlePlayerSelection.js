@@ -22,11 +22,20 @@ const handlePlayerSelection = functions.firestore
         return doc.data();
       })
       .reduce((doc) => doc);
+    const isCoordWithinTwoDegrees = (coord1, coord2) => {
+      return (
+        coord1 === coord2 ||
+        coord1 + 1 === coord2 ||
+        coord1 + 2 === coord2 ||
+        coord1 - 1 === coord2 ||
+        coord1 - 2 === coord2
+      );
+    };
     const isCharacterAtCoords = levelData.characters.some(
       (char) =>
         char.name === character &&
-        char.xCoord === coords.xCoord &&
-        char.yCoord === coords.yCoord
+        isCoordWithinTwoDegrees(char.xCoord, coords.xCoord) &&
+        isCoordWithinTwoDegrees(char.yCoord, coords.yCoord)
     );
 
     if (isCharacterAtCoords) {
@@ -34,7 +43,7 @@ const handlePlayerSelection = functions.firestore
       const gameSnap = await gameRef.get();
       const gameData = gameSnap.data();
       const updatedGameCharacters = gameData.characters.map((char) => {
-        if (char.name === character) {
+        if (char.character === character) {
           return { character, found: true };
         }
         return char;
@@ -64,8 +73,11 @@ const handlePlayerSelection = functions.firestore
                   .doc(snap.id)
                   .delete()
                   .then(() => {
-                    console.log('Succesfully updated game - gameover version')
-                    return { characters: updatedGameCharacters, elapsedSeconds };
+                    console.log("Succesfully updated game - gameover");
+                    return {
+                      characters: updatedGameCharacters,
+                      elapsedSeconds,
+                    };
                   });
               });
           });
@@ -77,12 +89,12 @@ const handlePlayerSelection = functions.firestore
               .doc(snap.id)
               .delete()
               .then(() => {
-                console.log('Succesfully updated game - gameover version')
+                console.log("Succesfully updated game - players remaining");
                 return { characters: updatedGameCharacters };
               });
           });
       }
-    } 
+    }
     return false;
   });
 
