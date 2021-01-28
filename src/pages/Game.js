@@ -33,7 +33,7 @@ const Game = (props) => {
   const hideDropdown = () => setShowDropdown(false);
 
   const dropdownClick = (character) => {
-    const gameSelection = { coords, character, gameID, level: props.level };
+    const gameSelection = { coords, character, gameId, level: props.level };
     firestore.collection('playerSelection').add(gameSelection);
     hideDropdown();
   };
@@ -46,7 +46,7 @@ const Game = (props) => {
     setShowDropdown(false)
   }
 
-  const [gameID, setGameID] = useState(null);
+  const [gameId, setgameId] = useState(null);
   const [image, setImage] = useState('');
   const [characters, setCharacters] = useState([]);
   const [gameComplete, setGameComplete] = useState(false);
@@ -79,14 +79,14 @@ const Game = (props) => {
       .collection('games')
       .add({ startTime: timestamp, level: props.level })
       .then((docRef) => {
-        setGameID(docRef.id);
+        setgameId(docRef.id);
       });
   }, [props.level]);
 
   useEffect(() => {
     // Load game characters
-    if (gameID) {
-      const gameRef = firestore.collection('games').doc(gameID);
+    if (gameId) {
+      const gameRef = firestore.collection('games').doc(gameId);
       return gameRef
         .update({
           characters,
@@ -99,7 +99,7 @@ const Game = (props) => {
           console.error('Error updating document: ', error);
         });
     }
-  }, [characters, gameID]);
+  }, [characters, gameId]);
 
   return (
     <GameWrapper characters={characters}>
