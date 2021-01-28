@@ -1,6 +1,10 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const { LEVELS, GAMES, PLAYER_SELECTION } = require("./helpers/constants/index");
+const {
+  LEVELS,
+  GAMES,
+  PLAYER_SELECTION,
+} = require("./helpers/constants/index");
 
 const db = admin.firestore();
 
@@ -55,31 +59,28 @@ const handlePlayerSelection = functions.firestore
               elapsedSeconds,
             })
             .then(() => {
-              db.collection(PLAYER_SELECTION).doc(snap.id).delete().then(() => {
-                return { characters: updatedGameCharacters, elapsedSeconds };
-              })
+              db.collection(PLAYER_SELECTION)
+                .doc(snap.id)
+                .delete()
+                .then(() => {
+                  console.log('Succesfully updated game - gameover version')
+                  return { characters: updatedGameCharacters, elapsedSeconds };
+                });
             });
         });
     } else {
-      gameRef.update({ ...gameData, characters: updatedGameCharacters }).then(() => {
-        db.collection(PLAYER_SELECTION).doc(snap.id).delete().then(() => {
-          return { characters: updatedGameCharacters };
-        })
-      });
-     
+      gameRef
+        .update({ ...gameData, characters: updatedGameCharacters })
+        .then(() => {
+          db.collection(PLAYER_SELECTION)
+            .doc(snap.id)
+            .delete()
+            .then(() => {
+              console.log('Succesfully updated game - gameover version')
+              return { characters: updatedGameCharacters };
+            });
+        });
     }
-
-    console.log(
-      character,
-      coords,
-      gameId,
-      level,
-      levelData,
-      isCharacterAtCoords,
-      updatedGameCharacters,
-      'snap.id',
-      snap.id,
-    );
     return true;
   });
 
