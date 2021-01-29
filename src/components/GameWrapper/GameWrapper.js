@@ -22,9 +22,6 @@ const GameWrapper = (props) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center">{characters}</div>
             <div className="flex items-center">
-              <div className="text-3xl font-semibold tracking-tighter leading-none">
-                0:03
-              </div>
               <div className="ml-8">
                 <PrimaryBtn link="/">Return Home</PrimaryBtn>
               </div>
