@@ -114,7 +114,6 @@ const Game = (props) => {
           />
         </OutsideClickHandler>
       </div>
-      <div onClick={() => setElapsedSeconds(true)}>trigger modal</div>
       <Modal
         showModal={elapsedSeconds}
         seconds={elapsedSeconds}
