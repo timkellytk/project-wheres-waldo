@@ -38,12 +38,11 @@ const Game = (props) => {
     hideDropdown();
   };
 
-  const submitScore = () => {
-    setShowDropdown(false);
-  };
-
-  const closeDropdown = () => {
-    setShowDropdown(false);
+  const submitScore = async () => {
+    const highscoreRef = await firestore.collection("games").doc(gameId).get()
+    const highscoreData = highscoreRef.data();
+    const newHighscore = { gameId, level: highscoreData.level, time: highscoreData.elapsedSeconds, name: props.username };
+    firestore.collection("highscores").add(newHighscore);
   };
 
   const [gameId, setgameId] = useState(null);
@@ -75,7 +74,6 @@ const Game = (props) => {
       })
       .then((loadedCharacters) => {
         // Create game
-        console.log(loadedCharacters, 'loadedCharacters')
         const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         firestore
           .collection("games")
@@ -123,7 +121,6 @@ const Game = (props) => {
         username={props.username}
         updateUsername={props.updateUsername}
         submitScore={submitScore}
-        closeDropdown={closeDropdown}
       />
     </GameWrapper>
   );
