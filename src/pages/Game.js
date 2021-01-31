@@ -5,7 +5,7 @@ import GameWrapper from "../components/GameWrapper/GameWrapper";
 import CharacterDropdown from "../components/CharacterDropdown/CharacterDropdown";
 import Modal from "../components/Modal";
 
-const Game = (props) => {
+const Game = ({ level, username, updateUsername }) => {
   const getLocationImageClick = (e) => {
     const xCoord = Math.round(
       (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
@@ -33,7 +33,7 @@ const Game = (props) => {
   const hideDropdown = () => setShowDropdown(false);
 
   const dropdownClick = (character) => {
-    const gameSelection = { coords, character, gameId, level: props.level };
+    const gameSelection = { coords, character, gameId, level };
     firestore.collection("playerSelection").add(gameSelection);
     hideDropdown();
   };
@@ -41,7 +41,7 @@ const Game = (props) => {
   const submitScore = async () => {
     const highscoreRef = await firestore.collection("games").doc(gameId).get()
     const highscoreData = highscoreRef.data();
-    const newHighscore = { gameId, level: highscoreData.level, time: highscoreData.elapsedSeconds, name: props.username };
+    const newHighscore = { gameId, level: highscoreData.level, time: highscoreData.elapsedSeconds, name: username };
     firestore.collection("highscores").add(newHighscore);
   };
 
@@ -57,7 +57,7 @@ const Game = (props) => {
     // Load level
     firestore
       .collection("levels")
-      .where("level", "==", props.level)
+      .where("level", "==", level)
       .get()
       .then(function (querySnapshot) {
         let charactersObj;
@@ -79,7 +79,7 @@ const Game = (props) => {
           .collection("games")
           .add({
             startTime: timestamp,
-            level: props.level,
+            level,
             characters: loadedCharacters,
           })
           .then((docRef) => {
@@ -94,7 +94,7 @@ const Game = (props) => {
               });
           });
       });
-  }, [props.level]);
+  }, [level]);
 
   return (
     <GameWrapper characters={characters}>
@@ -117,8 +117,8 @@ const Game = (props) => {
       <Modal
         showModal={elapsedSeconds}
         seconds={elapsedSeconds}
-        username={props.username}
-        updateUsername={props.updateUsername}
+        username={username}
+        updateUsername={updateUsername}
         submitScore={submitScore}
       />
     </GameWrapper>

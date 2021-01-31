@@ -1,88 +1,53 @@
-import React from 'react';
-import Card from '../components/Card/Card';
-import Wrapper from '../components/Wrapper/Wrapper';
-import { PrimaryBtn } from '../components/Utility/Btns/Btns';
-import { Link } from 'react-router-dom';
-import level1 from '../img/levels/level-1.jpg';
-import level2 from '../img/levels/level-2.jpg';
-import level3 from '../img/levels/level-3.jpg';
-import level4 from '../img/levels/level-4.jpg';
-import level5 from '../img/levels/level-5.jpg';
-import level6 from '../img/levels/level-6.jpg';
+import React from "react";
+import Card from "../components/Card/Card";
+import Wrapper from "../components/Wrapper/Wrapper";
+import { PrimaryBtn } from "../components/Utility/Btns/Btns";
+import { Link } from "react-router-dom";
+import level1 from "../img/levels/level-1.jpg";
+import level2 from "../img/levels/level-2.jpg";
+import level3 from "../img/levels/level-3.jpg";
+import level4 from "../img/levels/level-4.jpg";
+import level5 from "../img/levels/level-5.jpg";
+import level6 from "../img/levels/level-6.jpg";
 
-const Home = (props) => {
+const Home = ({ setLevel }) => {
+  const linkData = [
+    {
+      number: 1,
+      img: level1,
+      characters: { waldo: true, odlaw: true, wenda: false, wizard: true },
+    },
+    { number: 2, img: level2, characters: { waldo: true } },
+    {
+      number: 3,
+      img: level3,
+      characters: { waldo: true, odlaw: true, wenda: false, wizard: true },
+    },
+    { number: 4, img: level4, characters: { waldo: true, odlaw: true } },
+    {
+      number: 5,
+      img: level5,
+      characters: { waldo: true, odlaw: true, wenda: false, wizard: true },
+    },
+    { number: 6, img: level6, characters: { waldo: true } },
+  ];
+
+  const links = linkData.map((link) => {
+    return (
+      <Link to="/game">
+        <Card
+          img={link.img}
+          clicked={() => setLevel(link.number)}
+          alt={`Level ${link.number} Where's Waldo`}
+          {...link.characters}
+        >Level {link.number}</Card>
+      </Link>
+    );
+  });
   return (
     <Wrapper>
       <div className="grid md:grid-cols-3 gap-4">
-        <Link to="/game">
-          <Card
-            img={level1}
-            clicked={() => props.setLevel(1)}
-            alt="Level 1 Where's Waldo"
-            waldo
-            odlaw
-            wizard
-          >
-            Level 1
-          </Card>
-        </Link>
-        <Link to="/game">
-          <Card
-            img={level2}
-            clicked={() => props.setLevel(2)}
-            alt="Level 2 Where's Waldo"
-            waldo
-          >
-            Level 2
-          </Card>
-        </Link>
-        <Link to="/game">
-          <Card
-            img={level3}
-            clicked={() => props.setLevel(3)}
-            alt="Level 3 Where's Waldo"
-            waldo
-            odlaw
-            wizard
-            wenda
-          >
-            Level 3
-          </Card>
-        </Link>
-        <Link to="/game">
-          <Card
-            img={level4}
-            clicked={() => props.setLevel(4)}
-            alt="Level 4 Where's Waldo"
-            waldo
-            odlaw
-          >
-            Level 4
-          </Card>
-        </Link>
-        <Link to="/game">
-          <Card
-            img={level5}
-            clicked={() => props.setLevel(5)}
-            alt="Level 5 Where's Waldo"
-            waldo
-            odlaw
-            wizard
-            wenda
-          >
-            Level 5
-          </Card>
-        </Link>
-        <Link to="/game">
-          <Card
-            img={level6}
-            clicked={() => props.setLevel(6)}
-            alt="Level 6 Where's Waldo"
-            waldo
-          >
-            Level 6
-          </Card>
-        </Link>
+        {links}
       </div>
       <div className="bg-gray-50 mt-8">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">

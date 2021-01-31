@@ -11,7 +11,7 @@ import level4 from "../img/levels/level-4.jpg";
 import level5 from "../img/levels/level-5.jpg";
 import level6 from "../img/levels/level-6.jpg";
 
-const Leaderboard = (props) => {
+const Leaderboard = ({ level, setLevel }) => {
   const [leaderboardData, setLeaderboardData] = useState([]);
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const Leaderboard = (props) => {
           img={level.image}
           alt={"Level " + level.number + "Where's Waldo"}
           small
-          active={props.level === level.number}
-          clicked={() => props.setLevel(level.number)}
+          active={level === level.number}
+          clicked={() => setLevel(level.number)}
           key={level.number}
         >
           {"Level " + level.number}
@@ -68,7 +68,7 @@ const Leaderboard = (props) => {
         <div className="grid grid-cols-6 gap-3 mb-4">
           <Levels />
         </div>
-        <LeaderboardTable values={leaderboardData} level={props.level} />
+        <LeaderboardTable values={leaderboardData} level={level} />
       </div>
     </Wrapper>
   );
