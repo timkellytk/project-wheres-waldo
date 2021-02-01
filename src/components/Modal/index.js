@@ -47,6 +47,7 @@ export default function Modal({
                     id="username"
                     value={username}
                     onChange={updateUsername}
+                    maxlength="30"
                     className="p-4 mt-3 outline-none border focus:border-indigo-500 block w-full shadow-md rounded-md"
                   />
                 </div>
