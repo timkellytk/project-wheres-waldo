@@ -5,7 +5,7 @@ import GameWrapper from "../components/GameWrapper/GameWrapper";
 import CharacterDropdown from "../components/CharacterDropdown/CharacterDropdown";
 import Modal from "../components/Modal";
 
-const Game = ({ level, username, updateUsername }) => {
+const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
   const getLocationImageClick = (e) => {
     const xCoord = Math.round(
       (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
@@ -54,26 +54,32 @@ const Game = ({ level, username, updateUsername }) => {
   const [clickLocation, setClickLocation] = useState({ left: "0%", top: "0%" });
 
   useEffect(() => {
-    // Load level
+    // Load level on client
+    const getLevelData = levelData[level];
+    const transformedCharacters = getLevelData?.characters.map((character) => {
+      const obj = { character: character.name, found: false };
+      return obj;
+    });
+    setImage(getLevelData?.image);
+    setCharacters(transformedCharacters);
+
+    // Create game on server
     firestore
       .collection("levels")
       .where("level", "==", level)
       .get()
       .then(function (querySnapshot) {
-        let charactersObj;
+        let loadedCharacters;
         querySnapshot.forEach(function (doc) {
-          const { image, characters } = doc.data();
-          charactersObj = characters.map((character) => {
+          const { characters } = doc.data();
+          loadedCharacters = characters.map((character) => {
             const obj = { character: character.name, found: false };
             return obj;
           });
-          setImage(image);
-          setCharacters(charactersObj);
         });
-        return charactersObj;
+        return loadedCharacters;
       })
       .then((loadedCharacters) => {
-        // Create game
         const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         firestore
           .collection("games")
@@ -94,7 +100,7 @@ const Game = ({ level, username, updateUsername }) => {
               });
           });
       });
-  }, [level]);
+  }, [level, levelData]);
 
   return (
     <GameWrapper characters={characters}>

@@ -34,7 +34,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/game">
-          <Game level={level} username={username} updateUsername={handleUpdateUsername} />
+          <Game level={level} username={username} updateUsername={handleUpdateUsername} levelData={levelData} />
         </Route>
         <Route path="/leaderboard">
           <Leaderboard setLevel={setLevel} level={level} levelData={levelData} />

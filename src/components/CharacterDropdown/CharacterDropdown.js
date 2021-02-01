@@ -5,7 +5,7 @@ import Waldo from '../../img/character/waldo.jpg';
 import Wenda from '../../img/character/wenda.jpg';
 import Wizard from '../../img/character/wizard.jpg';
 
-const CharacterDropdown = (props) => {
+const CharacterDropdown = ({characters = [], show, clickLocation, clicked}) => {
   const getCharacterImage = (character) => {
     switch (character) {
       case 'Waldo':
@@ -22,12 +22,12 @@ const CharacterDropdown = (props) => {
   };
 
   const CharactersDropdownFields = () => {
-    return props.characters.map((character) => {
+    return characters.map((character) => {
       return (
         <CharacterDropdownField
           image={getCharacterImage(character.character)}
           title={character.character}
-          clicked={props.clicked}
+          clicked={clicked}
         />
       );
     });
@@ -35,8 +35,8 @@ const CharacterDropdown = (props) => {
 
   return (
     <div
-      className={`${props.show ? 'absolute' : 'hidden'}`}
-      style={props.clickLocation}
+      className={`${show ? 'absolute' : 'hidden'}`}
+      style={clickLocation}
     >
       <div
         className="mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 overflow-auto"
@@ -45,26 +45,6 @@ const CharacterDropdown = (props) => {
         aria-labelledby="options-menu"
       >
         <CharactersDropdownFields />
-        {/* <CharacterDropdownField
-          image={Waldo}
-          title="Waldo"
-          clicked={props.clicked}
-        />
-        <CharacterDropdownField
-          image={Odlaw}
-          title="Odlaw"
-          clicked={props.clicked}
-        />
-        <CharacterDropdownField
-          image={Wizard}
-          title="Wizard"
-          clicked={props.clicked}
-        />
-        <CharacterDropdownField
-          image={Wenda}
-          title="Wenda"
-          clicked={props.clicked}
-        /> */}
       </div>
     </div>
   );

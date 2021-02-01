@@ -4,8 +4,8 @@ import Container from '../Utility/Container/Container';
 import { PrimaryBtn } from '../Utility/Btns/Btns';
 import Character from './Character/Character';
 
-const GameWrapper = (props) => {
-  const characters = props.characters.map((character) => {
+const GameWrapper = ({ children, characters = []}) => {
+  const gameCharacters = characters.map((character) => {
     return (
       <Character
         name={character.character}
@@ -20,7 +20,7 @@ const GameWrapper = (props) => {
       <Header>
         <Container>
           <div className="flex justify-between items-center">
-            <div className="flex items-center">{characters}</div>
+            <div className="flex items-center">{gameCharacters}</div>
             <div className="flex items-center">
               <div className="ml-8">
                 <PrimaryBtn link="/">Return Home</PrimaryBtn>
@@ -30,7 +30,7 @@ const GameWrapper = (props) => {
         </Container>
       </Header>
       <Container navPadding>
-        <main>{props.children}</main>
+        <main>{children}</main>
       </Container>
     </>
   );
