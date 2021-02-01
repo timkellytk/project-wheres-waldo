@@ -9,6 +9,7 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
   const [gameId, setgameId] = useState(null);
   const [image, setImage] = useState("");
   const [characters, setCharacters] = useState([]);
+  const [gameover, setGameover] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [coords, setCoords] = useState(null);
@@ -62,6 +63,10 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
           });
       });
   }, [level, levelData]);
+
+  useEffect(() => {
+    setGameover(characters.every(char => char.found));
+  }, [characters])
 
   const getLocationImageClick = (e) => {
     const xCoord = Math.round(
@@ -121,7 +126,7 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
         </OutsideClickHandler>
       </div>
       <Modal
-        showModal={elapsedSeconds}
+        showModal={gameover}
         seconds={elapsedSeconds}
         username={username}
         updateUsername={updateUsername}
