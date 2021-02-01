@@ -6,45 +6,6 @@ import CharacterDropdown from "../components/CharacterDropdown/CharacterDropdown
 import Modal from "../components/Modal";
 
 const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
-  const getLocationImageClick = (e) => {
-    const xCoord = Math.round(
-      (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
-    );
-    const yCoord = Math.round(
-      (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
-    );
-    const coords = { xCoord, yCoord };
-    return coords;
-  };
-
-  const updateClickLocation = (coords) => {
-    const { xCoord, yCoord } = coords;
-    const updatedCoords = { left: xCoord + "%", top: yCoord + "%" };
-    setClickLocation(updatedCoords);
-    setShowDropdown(true);
-  };
-
-  const imageClick = (e) => {
-    const coords = getLocationImageClick(e);
-    setCoords(coords);
-    updateClickLocation(coords);
-  };
-
-  const hideDropdown = () => setShowDropdown(false);
-
-  const dropdownClick = (character) => {
-    const gameSelection = { coords, character, gameId, level };
-    firestore.collection("playerSelection").add(gameSelection);
-    hideDropdown();
-  };
-
-  const submitScore = async () => {
-    const highscoreRef = await firestore.collection("games").doc(gameId).get()
-    const highscoreData = highscoreRef.data();
-    const newHighscore = { gameId, level: highscoreData.level, time: highscoreData.elapsedSeconds, name: username };
-    firestore.collection("highscores").add(newHighscore);
-  };
-
   const [gameId, setgameId] = useState(null);
   const [image, setImage] = useState("");
   const [characters, setCharacters] = useState([]);
@@ -101,6 +62,45 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
           });
       });
   }, [level, levelData]);
+
+  const getLocationImageClick = (e) => {
+    const xCoord = Math.round(
+      (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
+    );
+    const yCoord = Math.round(
+      (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
+    );
+    const coords = { xCoord, yCoord };
+    return coords;
+  };
+
+  const updateClickLocation = (coords) => {
+    const { xCoord, yCoord } = coords;
+    const updatedCoords = { left: xCoord + "%", top: yCoord + "%" };
+    setClickLocation(updatedCoords);
+    setShowDropdown(true);
+  };
+
+  const imageClick = (e) => {
+    const coords = getLocationImageClick(e);
+    setCoords(coords);
+    updateClickLocation(coords);
+  };
+
+  const hideDropdown = () => setShowDropdown(false);
+
+  const dropdownClick = (character) => {
+    const gameSelection = { coords, character, gameId, level };
+    firestore.collection("playerSelection").add(gameSelection);
+    hideDropdown();
+  };
+
+  const submitScore = async () => {
+    const highscoreRef = await firestore.collection("games").doc(gameId).get()
+    const highscoreData = highscoreRef.data();
+    const newHighscore = { gameId, level: highscoreData.level, time: highscoreData.elapsedSeconds, name: username };
+    firestore.collection("highscores").add(newHighscore);
+  };
 
   return (
     <GameWrapper characters={characters}>
