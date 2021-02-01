@@ -28,8 +28,6 @@ function App() {
     });
   }, [])
 
-  console.log('levelData', levelData);
-
   return (
     <BrowserRouter>
       <Switch>

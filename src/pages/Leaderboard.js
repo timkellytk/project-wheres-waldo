@@ -7,8 +7,6 @@ import { PrimaryBtn, SecondaryBtn } from "../components/Utility/Btns/Btns";
 
 const Leaderboard = ({ level, setLevel, levelData = {} }) => {
   const [leaderboardData, setLeaderboardData] = useState([]);
-  console.log('leaderboardData', leaderboardData)
-  console.log('level', level)
 
   useEffect(() => {
     const getLeaderboardData = async () => {
@@ -23,23 +21,24 @@ const Leaderboard = ({ level, setLevel, levelData = {} }) => {
     getLeaderboardData();
   }, []);
 
-  const levelsArr = Object.keys(levelData)?.map((number) => {
+  const levelsArr = Object.keys(levelData)?.map((num) => {
+    const number = parseInt(num)
     const level = levelData[number];
-    return { number: parseInt(number), image: level.imageSmall }
+    return { number, image: level.imageSmall }
   });
 
   const Levels = () => {
-    return levelsArr.map((level) => {
+    return levelsArr.map((i) => {
       return (
         <Card
-          img={level.image}
-          alt={"Level " + level.number + "Where's Waldo"}
+          img={i.image}
+          alt={"i " + i.number + "Where's Waldo"}
           small
-          active={level === level.number}
-          clicked={() => setLevel(level.number)}
-          key={level.number}
+          active={level === i.number}
+          clicked={() => setLevel(i.number)}
+          key={i.number}
         >
-          {"Level " + level.number}
+          {"Level " + i.number}
         </Card>
       );
     });
@@ -57,7 +56,7 @@ const Leaderboard = ({ level, setLevel, levelData = {} }) => {
             Back To Home
           </SecondaryBtn>
         </div>
-        <div className="grid grid-cols-6 gap-3 mb-4">
+        <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
           <Levels />
         </div>
         <LeaderboardTable values={leaderboardData} level={level} />
