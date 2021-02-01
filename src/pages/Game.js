@@ -4,6 +4,7 @@ import firebase, { firestore } from "../firebase";
 import GameWrapper from "../components/GameWrapper/GameWrapper";
 import CharacterDropdown from "../components/CharacterDropdown/CharacterDropdown";
 import Modal from "../components/Modal";
+import isCoordWithinTwoDegrees from "../helpers/isCoordWithinTwoDegrees/index";
 
 const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
   const [gameId, setgameId] = useState(null);
@@ -19,7 +20,7 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
     // Load level on client
     const getLevelData = levelData[level];
     const transformedCharacters = getLevelData?.characters.map((character) => {
-      const obj = { character: character.name, found: false };
+      const obj = { ...character, found: false };
       return obj;
     });
     setImage(getLevelData?.image);
@@ -57,7 +58,6 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
               .doc(docRef.id)
               .onSnapshot((doc) => {
                 const data = doc.data();
-                setCharacters(data?.characters);
                 setElapsedSeconds(data?.elapsedSeconds);
               });
           });
@@ -65,8 +65,8 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
   }, [level, levelData]);
 
   useEffect(() => {
-    setGameover(characters.every(char => char.found));
-  }, [characters])
+    setGameover(characters?.every((char) => char.found));
+  }, [characters]);
 
   const getLocationImageClick = (e) => {
     const xCoord = Math.round(
@@ -96,14 +96,36 @@ const Game = ({ level = 1, levelData = {}, username, updateUsername }) => {
 
   const dropdownClick = (character) => {
     const gameSelection = { coords, character, gameId, level };
+
+    // Check for character on client
+    const selectedCharacter = characters.find((char) => {
+      return char.name === character;
+    });
+    const { xCoord, yCoord } = selectedCharacter;
+    const isCharacterAtCoords =
+      isCoordWithinTwoDegrees(xCoord, coords.xCoord) &&
+      isCoordWithinTwoDegrees(yCoord, coords.yCoord);
+    if (isCharacterAtCoords) {
+      const updatedCharacters = characters.map((char) =>
+        char.name === character ? { ...char, found: true } : char
+      );
+      setCharacters(updatedCharacters);
+    }
+
+    // Check for character on server
     firestore.collection("playerSelection").add(gameSelection);
     hideDropdown();
   };
 
   const submitScore = async () => {
-    const highscoreRef = await firestore.collection("games").doc(gameId).get()
+    const highscoreRef = await firestore.collection("games").doc(gameId).get();
     const highscoreData = highscoreRef.data();
-    const newHighscore = { gameId, level: highscoreData.level, time: highscoreData.elapsedSeconds, name: username };
+    const newHighscore = {
+      gameId,
+      level: highscoreData.level,
+      time: highscoreData.elapsedSeconds,
+      name: username,
+    };
     firestore.collection("highscores").add(newHighscore);
   };
 

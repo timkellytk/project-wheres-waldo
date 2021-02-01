@@ -8,9 +8,9 @@ const GameWrapper = ({ children, characters = []}) => {
   const gameCharacters = characters.map((character) => {
     return (
       <Character
-        name={character.character}
+        name={character.name}
         found={character.found}
-        key={character.character}
+        key={character.name}
       />
     );
   });

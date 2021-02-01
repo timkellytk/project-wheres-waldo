@@ -25,8 +25,8 @@ const CharacterDropdown = ({characters = [], show, clickLocation, clicked}) => {
     return characters.map((character) => {
       return (
         <CharacterDropdownField
-          image={getCharacterImage(character.character)}
-          title={character.character}
+          image={getCharacterImage(character.name)}
+          title={character.name}
           clicked={clicked}
         />
       );
