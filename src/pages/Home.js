@@ -14,7 +14,7 @@ const Home = ({ setLevel, levelData = {} }) => {
     return (
       <Link to="/game">
         <Card
-          img={link.image}
+          img={link.imageSmall}
           clicked={() => setLevel(link.level)}
           alt={`Level ${link.level} Where's Waldo`}
           {...characters}

@@ -37,7 +37,7 @@ function App() {
           <Game level={level} username={username} updateUsername={handleUpdateUsername} />
         </Route>
         <Route path="/leaderboard">
-          <Leaderboard setLevel={setLevel} level={level} />
+          <Leaderboard setLevel={setLevel} level={level} levelData={levelData} />
         </Route>
         <Route>
           <Home setLevel={setLevel} levelData={levelData} />

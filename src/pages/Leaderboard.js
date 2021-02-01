@@ -4,15 +4,11 @@ import Card from "../components/Card/Card";
 import LeaderboardTable from "../components/LeaderboardTable/LeaderboardTable";
 import { firestore } from "../firebase";
 import { PrimaryBtn, SecondaryBtn } from "../components/Utility/Btns/Btns";
-import level1 from "../img/levels/level-1.jpg";
-import level2 from "../img/levels/level-2.jpg";
-import level3 from "../img/levels/level-3.jpg";
-import level4 from "../img/levels/level-4.jpg";
-import level5 from "../img/levels/level-5.jpg";
-import level6 from "../img/levels/level-6.jpg";
 
-const Leaderboard = ({ level, setLevel }) => {
+const Leaderboard = ({ level, setLevel, levelData = {} }) => {
   const [leaderboardData, setLeaderboardData] = useState([]);
+  console.log('leaderboardData', leaderboardData)
+  console.log('level', level)
 
   useEffect(() => {
     const getLeaderboardData = async () => {
@@ -27,14 +23,10 @@ const Leaderboard = ({ level, setLevel }) => {
     getLeaderboardData();
   }, []);
 
-  const levelsArr = [
-    { number: 1, image: level1 },
-    { number: 2, image: level2 },
-    { number: 3, image: level3 },
-    { number: 4, image: level4 },
-    { number: 5, image: level5 },
-    { number: 6, image: level6 },
-  ];
+  const levelsArr = Object.keys(levelData)?.map((number) => {
+    const level = levelData[number];
+    return { number: parseInt(number), image: level.imageSmall }
+  });
 
   const Levels = () => {
     return levelsArr.map((level) => {
